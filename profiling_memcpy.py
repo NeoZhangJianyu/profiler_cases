@@ -9,8 +9,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-
-from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from torch.profiler import profile, ProfilerActivity, record_function
 
 
@@ -82,7 +80,7 @@ def main():
         output = model(dummy_input)
 
     print(prof.key_averages().table(sort_by=sort_by_keyword, row_limit=100))
-    prof.export_chrome_trace("trace.json")
+    prof.export_chrome_trace(f"trace_{device}.json")
 
     # Calculate the time elapsed for thinking
     elapsed_time = time.time() - start_time
